@@ -1,9 +1,3 @@
-<!-- 
-**********************************************************
-		NoCodeQuest.com
-********************************************************** 
--->
-<script>
 var Webflow = Webflow || [];
 Webflow.push(function() {
 
@@ -46,33 +40,36 @@ Webflow.push(function() {
 		xhr.timeout = requestTimeout;
 	}
 
-	// capture form submit
+	// capture form submit 
+	// prevent default behavior
+	// send our own ajax request!
+	// capture response
 	function triggerSubmit(event) {
 		event.preventDefault();
 		let formData = new FormData(event.target);
 		let xhr = new XMLHttpRequest();
+
+		// setup + send request
+		xhr.open('POST', event.srcElement.action);
+		addListeners(xhr);
+		addSettings(xhr);
+		xhr.send(formData);
+
+		// capture xhr response
+		xhr.onload = function() {
+			if (xhr.status === 302) {
+				window.location.assign(event.srcElement.dataset.redirect);
+			} else {
+				displayError(errorMessage);
+			}
+		}
+
+		// capture xhr request timeout
+		xhr.ontimeout = function() {
+			displayError(errorMessageTimedOut);
+		}
 	}
 
-	// capture xhr response
-	xhr.onload = function () {
-		if (xhr.status === 302) {
-			window.location.assign(event.srcElement.dataset.redirect);
-		} else {
-			displayError(errorMessage);	
-		}
-	}	
-	
-	// capture xhr request timeout
-	xhr.ontimeout = function () {
-		displayError(errorMessageTimedOut);
-	}
-	
-	// setup + make the request!
-	xhr.open('POST', event.srcElement.action);
-	addListeners(xhr);
-	addSettings(xhr);
-	xhr.send(formData);
-	
 	// replace 'form-one' with your form ID
 	const form = document.getElementById('form-one');
 
@@ -93,4 +90,3 @@ Webflow.push(function() {
 	form.addEventListener('submit', triggerSubmit);
 
 });
-</script>
