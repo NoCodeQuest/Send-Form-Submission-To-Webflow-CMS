@@ -45,10 +45,10 @@ Webflow.push(function() {
 
 		// prevent default behavior form submit behavior
 		event.preventDefault();
+		
+		// setup + send xhr request
 		let formData = new FormData(event.target);
 		let xhr = new XMLHttpRequest();
-
-		// setup + send xhr request
 		xhr.open('POST', event.srcElement.action);
 		addListeners(xhr);
 		addSettings(xhr);
@@ -70,7 +70,7 @@ Webflow.push(function() {
 		}
 	}
 
-	// replace 'form-one' with your form ID
+	// replace with your form ID
 	const form = document.getElementById('profile-form');
 
 	// set the Webflow Error Message Div Block ID to 'error-message'
