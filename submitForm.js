@@ -57,7 +57,8 @@ Webflow.push(function() {
 		// capture xhr response
 		xhr.onload = function() {
 			if (xhr.status === 302) {
-				window.location.assign(event.srcElement.dataset.redirect);
+      	let data = JSON.parse(xhr.responseText);
+				window.location.assign(event.srcElement.dataset.redirect + data.slug);
 			} else {
 				displayError(errorMessage);
 			}
@@ -70,7 +71,7 @@ Webflow.push(function() {
 	}
 
 	// replace 'form-one' with your form ID
-	const form = document.getElementById('form-one');
+	const form = document.getElementById('profile-form');
 
 	// set the Webflow Error Message Div Block ID to 'error-message'
 	let failureMessage = document.getElementById('error-message');
