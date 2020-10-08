@@ -40,16 +40,15 @@ Webflow.push(function() {
 		xhr.timeout = requestTimeout;
 	}
 
-	// capture form submit 
-	// prevent default behavior
-	// send our own ajax request!
-	// capture response
+	// triggered form submit 
 	function triggerSubmit(event) {
+		
+		// prevent default behavior form submit behavior
 		event.preventDefault();
 		let formData = new FormData(event.target);
 		let xhr = new XMLHttpRequest();
 
-		// setup + send request
+		// setup + send xhr request
 		xhr.open('POST', event.srcElement.action);
 		addListeners(xhr);
 		addSettings(xhr);
@@ -86,7 +85,7 @@ Webflow.push(function() {
 	let errorMessageTimedOut = 'Oops! Seems this timed out. Please try again.';
 	let errorMessage = 'Oops! Something went wrong. Please try again.';
 
-	// trigger on form submit
+	// capture form submit
 	form.addEventListener('submit', triggerSubmit);
 
 });
