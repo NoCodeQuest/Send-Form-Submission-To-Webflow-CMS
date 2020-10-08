@@ -42,7 +42,7 @@ Webflow.push(function() {
 
 	// triggered form submit 
 	function triggerSubmit(event) {
-		
+
 		// prevent default behavior form submit behavior
 		event.preventDefault();
 		let formData = new FormData(event.target);
@@ -57,7 +57,7 @@ Webflow.push(function() {
 		// capture xhr response
 		xhr.onload = function() {
 			if (xhr.status === 302) {
-      	let data = JSON.parse(xhr.responseText);
+				let data = JSON.parse(xhr.responseText);
 				window.location.assign(event.srcElement.dataset.redirect + data.slug);
 			} else {
 				displayError(errorMessage);
